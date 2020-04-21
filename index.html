@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script src="https://unpkg.com/polyline-encoded@0.0.9/Polyline.encoded.js" integrity="sha384-Unn6s4TuHyJguuREG7OCHeFEG3FhZ8dS8er0GGMt7mUzkyM0O/VpRwuKSTEbzVvu" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/js-base64@2.5.2/base64.js" integrity="sha384-TtY98uFZuJHTdPxnI7Jhz1LqitA4r51jGEU+viAwGaK+yTMoc2WI2bnTTbX/bxT0" crossorigin="anonymous"></script>
 
     <style>
     html, body {
@@ -48,15 +49,31 @@
         accessToken: 'pk.eyJ1IjoibGVvbmFyZGVocmVuZnJpZWQiLCJhIjoiY2l1ZWk1cjlsMDAxZTJ2cWxmNHowbmVvdCJ9.jd86A83HNqNlNyjRY0iGIg'
       }).addTo(map);
 
+
+      const addPolyline = (line) => {
+        const polyline = L.Polyline.fromEncoded(line, {
+          weight: 2,
+          color: '#f30'
+        }).addTo(map);
+        map.fitBounds(polyline.getBounds());
+      };
+
       const urlParams = new URLSearchParams(window.location.search);
       const encoded = urlParams.get('polyline');
 
-      const polyline = L.Polyline.fromEncoded(encoded, {
-        weight: 2,
-        color: '#f30'
-      }).addTo(map);
+      if(encoded) {
+        addPolyline(encoded);
+      };
 
-      map.fitBounds(polyline.getBounds());
+      const base64 = urlParams.get('polylineBase64') || urlParams.get('base64');
+
+      if(base64) {
+        console.log(base64);
+        var line = Base64.decode(base64);
+        console.log(line);
+        addPolyline(line);
+      };
+
 
     </script>
 
