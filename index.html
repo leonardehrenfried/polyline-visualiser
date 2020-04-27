@@ -54,16 +54,17 @@
       }).addTo(map);
 
 
+      const color = "#f30";
       const addPolyline = (line) => {
         const polyline = L.Polyline.fromEncoded(line, {
           weight: 2,
-          color: '#f30'
+          color: color
         }).addTo(map);
 
         var decorator = L.polylineDecorator(polyline, {
           patterns: [
             // defines a pattern of 10px-wide dashes, repeated every 20px on the line
-            {offset: 50, repeat: 400, symbol: L.Symbol.arrowHead({pathOptions: {fillOpacity: 0.7, weight: 0}})}
+            {offset: 50, repeat: 400, symbol: L.Symbol.arrowHead({pathOptions: {fillOpacity: 0.7, weight: 0, color: color}})}
           ]
         }).addTo(map);
 
