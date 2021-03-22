@@ -63,7 +63,7 @@
 
         var decorator = L.polylineDecorator(polyline, {
           patterns: [
-            // defines a pattern of 10px-wide dashes, repeated every 20px on the line
+            // arrows on the polyline indicating the direction
             {offset: 50, repeat: 400, symbol: L.Symbol.arrowHead({pathOptions: {fillOpacity: 0.7, weight: 0, color: color}})}
           ]
         }).addTo(map);
